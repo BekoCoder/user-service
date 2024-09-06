@@ -21,6 +21,6 @@ public interface UserService {
 
     UserDto updateUser(UserDto user, Long id);
 
-    boolean checkPassword(String  password);
+    boolean checkPassword(String password);
 
 }
