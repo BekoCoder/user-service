@@ -17,4 +17,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleCustomException(CustomException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ResponseEntity<Object> handleRoleNotFoundException(RoleNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }
