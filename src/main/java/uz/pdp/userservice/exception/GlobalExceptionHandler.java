@@ -22,4 +22,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleRoleNotFoundException(RoleNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(PermissionNotFoundException.class)
+    public ResponseEntity<Object> handlePermissionNotFoundException(PermissionNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }

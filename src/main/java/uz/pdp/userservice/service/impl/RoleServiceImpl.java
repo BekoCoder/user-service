@@ -11,6 +11,7 @@ import uz.pdp.userservice.repository.RoleRepository;
 import uz.pdp.userservice.repository.UserRepository;
 import uz.pdp.userservice.service.RoleService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -60,15 +61,19 @@ public class RoleServiceImpl implements RoleService {
     public Optional<RoleEntity> assignRoleToUser(Long userId, Long roleId) {
         Optional<RoleEntity> byId = roleRepository.findById(roleId);
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new CustomException("User mavjud emas"));
-        if(byId.isPresent()) {
+        if (byId.isPresent()) {
             RoleEntity roleEntity = byId.get();
             userEntity.getRoles().add(roleEntity);
             userRepository.save(userEntity);
             roleRepository.save(roleEntity);
             return Optional.of(roleEntity);
+        } else {
+            throw new CustomException("Bunday Role yaratilmagan");
         }
-    else {
-        throw new CustomException("Bunday Role yaratilmagan");
-        }
+    }
+
+    @Override
+    public List<RoleEntity> getAllRoles() {
+        return roleRepository.findAll();
     }
 }
