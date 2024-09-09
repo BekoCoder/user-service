@@ -46,7 +46,7 @@ public class SecurityConfig {
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers(pathAnonymous).permitAll()
                                 .requestMatchers("/auth/**", "/users/**").permitAll()
-                                .requestMatchers("/admin/**", "/permission/**", "/role/**").hasRole("ADMIN")
+                                .requestMatchers("/admin/**", "/permission/**", "/role/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
                 )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

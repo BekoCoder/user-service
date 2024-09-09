@@ -42,5 +42,13 @@ public class AdminController {
         return ResponseEntity.ok(userService.updateUser(userDto, id));
     }
 
+    @Operation(summary = "Foydalanuvchini id orqali o'chirish")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        log.info("delete-user: " + id);
+        userService.deleteById(id);
+        return ResponseEntity.ok(true);
+    }
+
 
 }

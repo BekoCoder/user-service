@@ -61,7 +61,9 @@ public class RoleServiceImpl implements RoleService {
     public Optional<RoleEntity> assignRoleToUser(Long userId, Long roleId) {
         Optional<RoleEntity> byId = roleRepository.findById(roleId);
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new CustomException("User mavjud emas"));
-        if (byId.isPresent()) {
+        if (userEntity.getIsDeleted()) {
+            throw new CustomException("User o'chirilgan");
+        } else if (byId.isPresent()) {
             RoleEntity roleEntity = byId.get();
             userEntity.getRoles().add(roleEntity);
             userRepository.save(userEntity);

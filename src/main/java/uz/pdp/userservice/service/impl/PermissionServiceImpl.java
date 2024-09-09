@@ -56,11 +56,11 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public PermissionEntity updatePermission( Long id,PermissionDto permissionDto) {
+    public PermissionEntity updatePermission(Long id, PermissionDto permissionDto) {
         PermissionEntity permission = permissionRepository.findById(id).orElseThrow(() -> new PermissionNotFoundException("Bunday Permission yaratilgan"));
-        if(Objects.equals(permission.getId(), id)){
-           permission.setName(permissionDto.getName());
-           return permissionRepository.save(permission);
+        if (Objects.equals(permission.getId(), id)) {
+            permission.setName(permissionDto.getName());
+            return permissionRepository.save(permission);
         }
         throw new CustomException("Bunday Permission Topilmadi");
     }
@@ -73,15 +73,14 @@ public class PermissionServiceImpl implements PermissionService {
     public Optional<PermissionEntity> assignPermissionToRole(Long roleId, Long permissionId) {
         Optional<PermissionEntity> byId = permissionRepository.findById(permissionId);
         RoleEntity roleEntity = roleRepository.findById(roleId).orElseThrow(() -> new RoleNotFoundException("Bunday Role yaratilgan"));
-        if(byId.isPresent()){
+        if (byId.isPresent()) {
             PermissionEntity permission = byId.get();
             roleEntity.getPermissions().add(permission);
             roleRepository.save(roleEntity);
             permissionRepository.save(permission);
             return Optional.of(permission);
-        }
-    else {
-        throw new PermissionNotFoundException("Bunday Permission yaratilgan");
+        } else {
+            throw new PermissionNotFoundException("Bunday Permission yaratilgan");
         }
 
     }

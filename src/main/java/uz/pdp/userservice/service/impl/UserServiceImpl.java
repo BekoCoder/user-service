@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     public AuthenticationResponce register(UserDto user) {
         UserEntity userEntity = mapper.map(user, UserEntity.class);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
-        userEntity.setIsDeleted(true);
+        userEntity.setIsDeleted(false);
         if (!checkPassword(user.getPassword())) {
             throw new CustomException("Parol minimum 5 ta va maksimum 50 ta belgi bo'lishi kerak");
         }
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public AuthenticationResponce login(AuthenticationRequest request) {
         UserEntity userEntity = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new UserNotFoundException("User mavjud"));
-        if (!userEntity.getIsDeleted()) {
+        if (userEntity.getIsDeleted()) {
             throw new UserNotFoundException("User mavjud emas");
         }
         if (!passwordEncoder.matches(request.getPassword(), userEntity.getPassword())) {
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        List<UserEntity> all = userRepository.findAll();
+        List<UserEntity> all = userRepository.findAllActiveUsers();
         if (all.isEmpty()) {
             throw new CustomException("Ma'lumot topilmadi");
         }
@@ -83,15 +83,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(Long id) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User mavjud emas"));
-        if (userEntity != null) {
-            userEntity.setIsDeleted(false);
+        if (userEntity.getIsDeleted()) {
+            throw new UserNotFoundException("User mavjud emas");
         }
+        userEntity.setIsDeleted(true);
+        userRepository.save(userEntity);
     }
 
     @Override
     public UserDto getUserById(Long id) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User mavjud emas"));
-        if (userEntity != null && userEntity.getIsDeleted()) {
+        if (userEntity != null && !userEntity.getIsDeleted()) {
             return mapper.map(userEntity, UserDto.class);
         }
         throw new UserNotFoundException("User mavjud emas");
@@ -100,7 +102,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto user, Long id) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User mavjud"));
-        if (!userEntity.getIsDeleted()) {
+        if (userEntity.getIsDeleted()) {
             throw new UserNotFoundException("User mavjud emas");
         }
         if (!checkPassword(user.getPassword())) {
