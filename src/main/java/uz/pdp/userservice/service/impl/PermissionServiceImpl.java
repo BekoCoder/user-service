@@ -72,7 +72,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public Optional<PermissionEntity> assignPermissionToRole(Long roleId, Long permissionId) {
         Optional<PermissionEntity> byId = permissionRepository.findById(permissionId);
-        RoleEntity roleEntity = roleRepository.findById(roleId).orElseThrow(() -> new RoleNotFoundException("Bunday Role yaratilgan"));
+        RoleEntity roleEntity = roleRepository.findById(roleId).orElseThrow(() -> new RoleNotFoundException("Bunday Role topilmadi"));
         if (byId.isPresent()) {
             PermissionEntity permission = byId.get();
             roleEntity.getPermissions().add(permission);

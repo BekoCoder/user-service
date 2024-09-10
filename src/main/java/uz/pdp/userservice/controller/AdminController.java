@@ -20,7 +20,6 @@ import java.util.Optional;
 @Slf4j
 public class AdminController {
     private final UserService userService;
-    private final RoleService roleService;
 
     @Operation(summary = "Barcha foydalanuvchilarni olish")
     @GetMapping("/getAllUser")
