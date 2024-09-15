@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.userservice.dto.UserDto;
-import uz.pdp.userservice.service.RoleService;
 import uz.pdp.userservice.service.UserService;
 
 import java.util.List;

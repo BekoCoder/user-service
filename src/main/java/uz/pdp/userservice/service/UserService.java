@@ -3,8 +3,10 @@ package uz.pdp.userservice.service;
 import uz.pdp.userservice.dto.AuthenticationRequest;
 import uz.pdp.userservice.dto.AuthenticationResponce;
 import uz.pdp.userservice.dto.UserDto;
+import uz.pdp.userservice.entity.RoleEntity;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
     AuthenticationResponce register(UserDto user);
@@ -22,5 +24,7 @@ public interface UserService {
     UserDto updateUser(UserDto user, Long id);
 
     boolean checkPassword(String password);
+
+    Set<String> getRoleByUsername(String username);
 
 }

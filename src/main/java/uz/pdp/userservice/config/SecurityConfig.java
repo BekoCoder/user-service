@@ -47,6 +47,7 @@ public class SecurityConfig {
                                 .requestMatchers(pathAnonymous).permitAll()
                                 .requestMatchers("/auth/**", "/users/**").permitAll()
                                 .requestMatchers("/admin/**", "/permission/**", "/role/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+                                .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -66,6 +67,4 @@ public class SecurityConfig {
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
     }
-
-
 }
