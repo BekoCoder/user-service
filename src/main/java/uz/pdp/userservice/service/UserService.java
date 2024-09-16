@@ -3,7 +3,6 @@ package uz.pdp.userservice.service;
 import uz.pdp.userservice.dto.AuthenticationRequest;
 import uz.pdp.userservice.dto.AuthenticationResponce;
 import uz.pdp.userservice.dto.UserDto;
-import uz.pdp.userservice.entity.RoleEntity;
 
 import java.util.List;
 import java.util.Set;

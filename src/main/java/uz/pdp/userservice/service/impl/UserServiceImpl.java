@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.pdp.userservice.dto.AuthenticationRequest;
 import uz.pdp.userservice.dto.AuthenticationResponce;
-import uz.pdp.userservice.dto.RoleDto;
 import uz.pdp.userservice.dto.UserDto;
 import uz.pdp.userservice.entity.RoleEntity;
 import uz.pdp.userservice.entity.UserEntity;
@@ -131,11 +130,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<String> getRoleByUsername(String username) {
         UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User mavjud emas"));
-            if(userEntity!=null){
-                return userEntity.getRoles().stream()
-                        .map(RoleEntity::getName)
-                        .collect(Collectors.toSet());
-            }
-            return Collections.emptySet();
+        if (userEntity != null) {
+            return userEntity.getRoles().stream()
+                    .map(RoleEntity::getName)
+                    .collect(Collectors.toSet());
+        }
+        return Collections.emptySet();
     }
 }

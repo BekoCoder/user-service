@@ -2,7 +2,6 @@ package uz.pdp.userservice.service;
 
 import uz.pdp.userservice.dto.PermissionDto;
 import uz.pdp.userservice.entity.PermissionEntity;
-import uz.pdp.userservice.entity.RoleEntity;
 
 import java.util.List;
 import java.util.Optional;
