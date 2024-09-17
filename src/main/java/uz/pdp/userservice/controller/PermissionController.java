@@ -6,8 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.userservice.dto.PermissionDto;
+import uz.pdp.userservice.dto.RoleDto;
 import uz.pdp.userservice.entity.PermissionEntity;
 import uz.pdp.userservice.service.PermissionService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/permission")
@@ -45,6 +48,12 @@ public class PermissionController {
     @PutMapping("/assign-permission-to-role/{roleId}/{permissionId}")
     public ResponseEntity<?> assignPermissionToRole(@PathVariable Long roleId, @PathVariable Long permissionId) {
         return ResponseEntity.ok(permissionService.assignPermissionToRole(roleId, permissionId));
+    }
+
+    @Operation(summary = "Ruxsatlarni barchasini olish")
+    @GetMapping("/get-permissions")
+    public ResponseEntity<List<PermissionEntity>> getPermissions() {
+       return ResponseEntity.ok(permissionService.getPermissions());
     }
 
 
