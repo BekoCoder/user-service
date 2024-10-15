@@ -137,4 +137,9 @@ public class UserServiceImpl implements UserService {
         }
         return Collections.emptySet();
     }
+
+    @Override
+    public void myInfo() {
+        // example
+    }
 }
