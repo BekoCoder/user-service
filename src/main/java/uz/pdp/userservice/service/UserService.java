@@ -28,4 +28,6 @@ public interface UserService {
 
     void myInfo();
 
+    void rew();
+
 }
