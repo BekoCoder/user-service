@@ -138,15 +138,5 @@ public class UserServiceImpl implements UserService {
         return Collections.emptySet();
     }
 
-    @Override
-    public void myInfo() {
-        // example
-        /*sadasdsad*/
-        /*dasdsad*/
-    }
 
-    @Override
-    public void rew() {
-        /*dsada*/
-    }
 }

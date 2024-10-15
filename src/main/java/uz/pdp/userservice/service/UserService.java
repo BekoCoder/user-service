@@ -26,8 +26,6 @@ public interface UserService {
 
     Set<String> getRoleByUsername(String username);
 
-    void myInfo();
 
-    void rew();
 
 }
